@@ -9,20 +9,25 @@ class DeptAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Filiere)
-class DeptAdmin(admin.ModelAdmin):
+class FiliereAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Prof)
-class DeptAdmin(admin.ModelAdmin):
+class ProfAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Salle)
-class DeptAdmin(admin.ModelAdmin):
+class SalleAdmin(admin.ModelAdmin):
     list_display = (
         "nom",
+        "description",
+
+    )
+
+    list_editable = (
         "description",
     )
 
 @admin.register(Cours)
-class DeptAdmin(admin.ModelAdmin):
+class CoursAdmin(admin.ModelAdmin):
     pass

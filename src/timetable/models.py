@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -9,6 +10,9 @@ class Dept(models.Model):
         verbose_name = "Département"
     def __str__(self):
         return self.nom_dpt
+
+    def get_absolute_url(self):
+        return reverse("timetable-homepage")
 
 
 
@@ -21,6 +25,8 @@ class Filiere(models.Model):
     def __str__(self):
         return self.nom_filiere
 
+    def get_absolute_url(self):
+        return reverse("timetable-homepage")
 
 class Promo(models.Model):
     nom_promo = models.CharField(max_length=20)
@@ -29,6 +35,9 @@ class Promo(models.Model):
         verbose_name = "Promotion"
     def __str__(self):
         return self.nom_promo
+
+    def get_absolute_url(self):
+        return reverse("timetable-homepage")
 
 
 class Cours(models.Model):
@@ -40,27 +49,33 @@ class Cours(models.Model):
     def __str__(self):
         return self.libelle
 
+    def get_absolute_url(self):
+        return reverse("timetable-homepage")
 
 class Salle(models.Model):
     nom = models.CharField(max_length=20)
     description = models.CharField(max_length=20)
-
 
     class Meta:
         verbose_name = "Salle"
     def __str__(self):
         return f"{self.nom} {self.description}"
 
+    def get_absolute_url(self):
+        return reverse("timetable-homepage")
+
 
 class Prof(models.Model):
     nom = models.CharField(max_length=30)
-    prenom = models.CharField(max_length=50)
 
 
     class Meta:
         verbose_name = "Professeur"
     def __str__(self):
-        return f"{self.prenom} {self.nom}"
+        return self.nom
+
+    def get_absolute_url(self):
+        return reverse("timetable-homepage")
 
 class Creneau(models.Model):
     filiere = models.ForeignKey(Filiere, on_delete=models.CASCADE, default=None)

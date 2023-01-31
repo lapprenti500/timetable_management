@@ -1,311 +1,114 @@
-{% load static %}
-<html>
+{% extends 'timetable/base.html' %}
 
-<head>
-    <meta charset="utf-8"/>
-    <title>Gestion des emplois du temps</title>
+{% block tilte %} <h1>Les créneaux disponibles <h1> {% endblock tilte %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <script language="javascript">
-      function verifier() {
-        var dmin = document.myform.datemin.value;
-        var hmin = document.myform.heuremin.value;
-        var dmax = document.myform.datemax.value;
-        var hmax = document.myform.heuremax.value;
+    
+    {% block header %} 
+    <div class="container mt-5">
+      <h2 class="text-center alert text-white bg-primary">GESTION DES EMPLOIS DU
+        TEMPS</h2>
 
-        if ( (dmin != '') && (tmin != '') && (dmax != '') && (tmax != '')) {
-          var ddebut = new Date(dmin+'T'+hmin)
-          var dfin   = new Date(dmax+'T'+hmax)
-
-          if (ddebut<dfin) {
-            document.myform.msgerreur.value = "";
-            return true;
-          } else {
-            document.myform.msgerreur.value = "ERREUR";
-            return false;
-          }
-        } else {
-          document.myform.msgerreur.value = "";
-          return true;
-        }
-      }
-
-    </script>
-</head>
-
-<body>
-
-<div class="container-fluid">
-    <h1>Gestion des emplois du temps</h1>
-
-    <div class="p-2">
-        <form name="myform" action="index13b.php" method="GET" onsubmit="return verifier()">
-            <div class="row g-3">
-                <!-- Choix date et heure minimum -->
-                <div class="col-sm-1">
-                    <label for="datemin" class="form-label">Date min</label>
-                    <input type="date" class="form-control" name="datemin">
-                </div>
-                <div class="col-sm-1">
-                    <label for="heuremin" class="form-label">Heure min</label>
-                    <input type="time" class="form-control" name="heuremin">
-                </div>
-
-                <!-- Choix date et heure maximum -->
-                <div class="col-sm-1">
-                    <label for="datemax" class="form-label">Date max</label>
-                    <input type="date" class="form-control" name="datemax">
-                </div>
-                <div class="col-sm-1">
-                    <label for="heuremax" class="form-label">Heure max</label>
-                    <input type="time" class="form-control" name="heuremax">
-                </div>
-
-                <div class="col-sm-2">
-                    <label for="msgerreur" class="form-label">&nbsp;</label>
-                    <input type="text" class="form-control" name="msgerreur" value="" disabled>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="row g-3">
-                <!-- Choix du cours -->
-                <div class="col-sm-2">
-                    <label for="cours" class="col-sm-5">Nom du cours</label>
-                    <select class="form-control" name="cours">
-                        <option value="none" selected>&#x3008;aucun&#x3009;</option>
-
-                        <option value="1">R201 (Technologie de l'Internet)</option>
-                        <option value="2">R204 (Initiation à la téléphonie d'entreprise)</option>
-                        <option value="3">SAE 21 (SAE 21)</option>
-                        <option value="4">R213 (Mathématiques des systèmes numériques)</option>
-                        <option value="5">R209 (Initiation au développement Web)</option>
-                        <option value="6">R214 (Analyse mathématiques des signaux)</option>
-                        <option value="7">R211 (Expression, Culture, Communication)</option>
-                        <option value="501">réunion (Présentation parcours BUT)</option>
-                    </select>
-                </div>
-
-                <!-- Choix de la salle -->
-                <div class="col-sm-2">
-                    <label for="salle" class="col-sm-5">Nom de la salle</label>
-                    <select class="form-control" name="salle">
-                        <option value="none" selected>&#x3008;aucun&#x3009;</option>
-
-                        <option value="1">Amphi BIO</option>
-                        <option value="2">Salle de cours</option>
-                        <option value="3">Téléformation</option>
-                        <option value="4">TD6</option>
-                        <option value="5">Réseaux</option>
-                        <option value="6">Salle PC</option>
-                        <option value="7">TD4</option>
-                        <option value="8">Très Haut Débit</option>
-                        <option value="9">Station</option>
-                        <option value="10">Projets</option>
-                        <option value="11">Réseaux optiques</option>
-                        <option value="12">TD Info</option>
-                        <option value="13">Téléphonie</option>
-                    </select>
-                </div>
-
-                <!-- Choix du prof -->
-                <div class="col-sm-2">
-                    <label for="prof" class="col-sm-5">Nom du prof</label>
-                    <select class="form-control" name="prof">
-                        <option value="none" selected>&#x3008;aucun&#x3009;</option>
-
-                        <option value="0">accès libre</option>
-                        <option value="1">JJB</option>
-                        <option value="2">AA</option>
-                        <option value="3">PA</option>
-                        <option value="4">SS</option>
-                        <option value="5">SM</option>
-                        <option value="6">MM</option>
-                        <option value="7">FK</option>
-                    </select>
-                </div>
-            </div>
-
-            <br>
-
-            <!-- Bouton de soumission du formulaire -->
-            <input type="submit" class="btn btn-primary" name="go" value="Rafraîchir">
-        </form>
     </div>
 
-    <div class="p-2">
-        <table class="table table-sm table-striped">
+    {% endblock header %}
+
+    {% block content %}
+    <div class="container mt-1">
+      <form name="myform" action="index13b.php" method="GET" onsubmit="return
+        verifier()">
+        <div class="row g-3">
+
+          <!-- Choix du cours -->
+          <div class="col-sm-4">
+            <label for="cours" class="form-label">FILIERE</label>
+            <select class="form-control" name="cours">
+              <option value="none" selected>&#x3008;aucun&#x3009;</option>
+              <option value="1">INF (LGI)</option>
+              <option value="2">INF (LMI 1)</option>
+              <option value="3">MATH 21 (LMI 2)</option>
+              <option value="4">MATH
+                (LSEE)</option>
+              <option value="5">INF2311 (Initiation au développement Web)</option>
+              <option value="6">INF (analyse numerique)</option>
+              <option value="7">INF (Analyse)</option>
+              <option value="501">math (algebre)</option>
+            </select>
+          </div>
+          <br>
+          <!-- Choix date et heure minimum -->
+          <div class="col-sm-1">
+            <label for="datemin" class="form-label">Date min</label>
+            <input type="date" class="form-control" name="datemin">
+          </div>
+          <div class="col-sm-1">
+            <label for="heuremin" class="form-label">Heure min</label>
+            <input type="time" class="form-control" name="heuremin">
+          </div>
+
+          <!-- Choix date et heure maximum -->
+          <div class="col-sm-1">
+            <label for="datemax" class="form-label">Date max</label>
+            <input type="date" class="form-control" name="datemax">
+          </div>
+          <div class="col-sm-1">
+            <label for="heuremax" class="form-label">Heure max</label>
+            <input type="time" class="form-control" name="heuremax">
+
+          </div>
+          <div class="col-sm-1 mt-5">
+            <input type="submit" class="btn btn-primary" name="go" value="Rafraîchir">
+          </div>
+
+        </div>
+        <br>
+
+        <div class="container mt-5">
+          <h6 class="text-center alert text-white bg-primary">LISTE DES
+            CRENEAUX</h6>
+          <table class="table table-info table-hover">
+
             <thead>
-            <tr>
-                <th>num</th>
-                <th>début</th>
-                <th>fin</th>
-                <th>cours</th>
-                <th>salle</th>
-                <th>prof</th>
-            </tr>
+              <tr>
+                
+                <th scope="col">num</th>
+                <th scope="col">début</th>
+                <th scope="col">fin</th>
+                <th scope="col">cours</th>
+                <th scope="col">salle</th>
+                <th scope="col">prof</th>
+
+              </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>2022-04-04 08:00:00</td>
-                <td>2022-04-04 09:30:00</td>
-                <td><a href="" title="Technologie de l'Internet">R201</a></td>
-                <td>Amphi BIO</td>
-                <td><a href="#" title="infos prof #1">JJB</a></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2022-04-04 09:30:00</td>
-                <td>2022-04-04 11:00:00</td>
-                <td><a href="" title="Initiation à la téléphonie d'entreprise">R204</a></td>
-                <td>Salle de cours</td>
-                <td><a href="#" title="infos prof #2">AA</a></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>2022-04-04 11:00:00</td>
-                <td>2022-04-04 12:30:00</td>
-                <td><a href="" title="SAE 21">SAE 21</a></td>
-                <td>Téléformation</td>
-                <td><a href="#" title="infos prof #3">PA</a></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>2022-04-04 13:30:00</td>
-                <td>2022-04-04 15:00:00</td>
-                <td><a href="" title="Initiation à la téléphonie d'entreprise">R204</a></td>
-                <td>TD6</td>
-                <td><a href="#" title="infos prof #2">AA</a></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>2022-04-04 15:00:00</td>
-                <td>2022-04-04 18:00:00</td>
-                <td><a href="" title="Technologie de l'Internet">R201</a></td>
-                <td>Réseaux</td>
-                <td><a href="#" title="infos prof #1">JJB</a></td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>2022-04-04 18:00:00</td>
-                <td>2022-04-04 19:30:00</td>
-                <td><a href="" title="Présentation parcours BUT">réunion</a></td>
-                <td>Salle de cours</td>
-                <td><a href="#" title="infos prof #4">SS</a></td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>2022-04-05 08:00:00</td>
-                <td>2022-04-05 11:00:00</td>
-                <td><a href="" title="Initiation au développement Web">R209</a></td>
-                <td>Salle PC</td>
-                <td><a href="#" title="infos prof #5">SM</a></td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>2022-04-05 11:00:00</td>
-                <td>2022-04-05 12:30:00</td>
-                <td><a href="" title="Initiation à la téléphonie d'entreprise">R204</a></td>
-                <td>TD4</td>
-                <td><a href="#" title="infos prof #2">AA</a></td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>2022-04-05 13:30:00</td>
-                <td>2022-04-05 15:00:00</td>
-                <td><a href="" title="SAE 21">SAE 21</a></td>
-                <td>Très Haut Débit</td>
-                <td><a href="#" title="infos prof #0">accès libre</a></td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>2022-04-05 15:00:00</td>
-                <td>2022-04-05 18:00:00</td>
-                <td><a href="" title="Initiation au développement Web">R209</a></td>
-                <td>Station</td>
-                <td><a href="#" title="infos prof #6">MM</a></td>
-            </tr>
-            <tr>
-                <td>11</td>
-                <td>2022-04-06 08:00:00</td>
-                <td>2022-04-06 09:30:00</td>
-                <td><a href="" title="SAE 21">SAE 21</a></td>
-                <td>Projets</td>
-                <td><a href="#" title="infos prof #0">accès libre</a></td>
-            </tr>
-            <tr>
-                <td>12</td>
-                <td>2022-04-06 09:00:00</td>
-                <td>2022-04-06 11:00:00</td>
-                <td><a href="" title="SAE 21">SAE 21</a></td>
-                <td>Réseaux optiques</td>
-                <td><a href="#" title="infos prof #0">accès libre</a></td>
-            </tr>
-            <tr>
-                <td>13</td>
-                <td>2022-04-06 11:00:00</td>
-                <td>2022-04-06 12:30:00</td>
-                <td><a href="" title="Analyse mathématiques des signaux">R214</a></td>
-                <td>TD Info</td>
-                <td><a href="#" title="infos prof #5">SM</a></td>
-            </tr>
-            <tr>
-                <td>14</td>
-                <td>2022-04-06 13:30:00</td>
-                <td>2022-04-06 15:00:00</td>
-                <td><a href="" title="Expression, Culture, Communication">R211</a></td>
-                <td>Téléformation</td>
-                <td><a href="#" title="infos prof #7">FK</a></td>
-            </tr>
-            <tr>
-                <td>15</td>
-                <td>2022-04-06 15:00:00</td>
-                <td>2022-04-06 18:00:00</td>
-                <td><a href="" title="Initiation à la téléphonie d'entreprise">R204</a></td>
-                <td>Téléphonie</td>
-                <td><a href="#" title="infos prof #2">AA</a></td>
-            </tr>
-            <tr>
-                <td>16</td>
-                <td>2022-04-07 08:00:00</td>
-                <td>2022-04-07 09:30:00</td>
-                <td><a href="" title="Analyse mathématiques des signaux">R214</a></td>
-                <td>Salle de cours</td>
-                <td><a href="#" title="infos prof #5">SM</a></td>
-            </tr>
-            <tr>
-                <td>17</td>
-                <td>2022-04-07 09:30:00</td>
-                <td>2022-04-07 11:00:00</td>
-                <td><a href="" title="Initiation au développement Web">R209</a></td>
-                <td>TD Info</td>
-                <td><a href="#" title="infos prof #6">MM</a></td>
-            </tr>
-            <tr>
-                <td>18</td>
-                <td>2022-04-07 11:00:00</td>
-                <td>2022-04-07 12:30:00</td>
-                <td><a href="" title="Mathématiques des systèmes numériques">R213</a></td>
-                <td>TD Info</td>
-                <td><a href="#" title="infos prof #5">SM</a></td>
-            </tr>
-            </tbody>
+
+
+              
+
+              
+             {% for creneau in creneaux%}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{creneau.date_debut}}</td>
+                <td>{{creneau.date_fin}}</td>
+                <td>{{creneau.cours}}</a></td>
+                <td>{{creneau.salle}}</td>
+                <td>{{creneau.prof}}</td>
+              </tr>
+             {% endfor %}
+
+              </tbody>
+        </div>
+
+
+
+
+        </tbody>
+
         </table>
     </div>
+    <p>
+      <a href="{% url 'createPlanning' %}">Créer un nouveau créneau</a>
+    </p>
 
-    <hr>
-    Copyright © 2022 Manuel Munier
-    <br>
-    <a href="https://munier.perso.univ-pau.fr/">https://munier.perso.univ-pau.fr/</a>
-
-</div>
-</body>
-
-</html>
-
-
-
+    {% endblock content %}
