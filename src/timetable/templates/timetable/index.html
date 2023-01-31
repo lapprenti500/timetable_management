@@ -15,7 +15,7 @@
 
     {% block content %}
     <div class="container mt-1">
-      <form name="myform" action="index13b.php" method="GET" onsubmit="return
+      <form name="myform" method="GET" onsubmit="return
         verifier()">
         <div class="row g-3">
 
@@ -24,15 +24,10 @@
             <label for="cours" class="form-label">FILIERE</label>
             <select class="form-control" name="cours">
               <option value="none" selected>&#x3008;aucun&#x3009;</option>
-              <option value="1">INF (LGI)</option>
-              <option value="2">INF (LMI 1)</option>
-              <option value="3">MATH 21 (LMI 2)</option>
-              <option value="4">MATH
-                (LSEE)</option>
-              <option value="5">INF2311 (Initiation au développement Web)</option>
-              <option value="6">INF (analyse numerique)</option>
-              <option value="7">INF (Analyse)</option>
-              <option value="501">math (algebre)</option>
+              {% for creneau in creneaux %}
+                 <option>&#x3008;{{creneau.filiere}} &#x3009;</option>
+                {%endfor%}
+
             </select>
           </div>
           <br>
