@@ -1,0 +1,112 @@
+{% extends 'timetable/base.html' %}
+{% load widget_tweaks %}
+{% block tilte %} <h1>Les créneaux filtres <h1> {% endblock tilte %}
+
+
+
+    {% block header %}
+    <div class="container mt-5">
+      <h2 class="text-center alert text-white bg-primary"><a class="text-white" href="{% url 'timetable-homepage' %}">  GESTION DES EMPLOIS DU
+        TEMPS</a> </h2>
+
+    </div>
+
+    {% endblock header %}
+
+  {% block content %}
+    <div class="container mt-1">
+
+      <form method="GET" name="myform" action="{% url 'filterPlanning' %}" method="GET">
+
+        <div class="row g-3">
+
+          <!-- Choix de la filiere -->
+          <div class="col-sm-4">
+            <label for="filiere" class="form-label">FILIERE</label>
+            <select class="form-control" name="filiere">
+              <option value="none" selected>&#x3008;aucun&#x3009;</option>
+              {% for creneau in creneaux %}
+                 <option>{{creneau.filiere}}</option>
+                {%endfor%}
+
+            </select>
+          </div>
+          <br>
+          <!-- Choix date et heure minimum -->
+          <div class="col-sm-1">
+            <label for="datemin" class="form-label">Date min</label>
+            <input type="date" class="form-control" name="datemin">
+          </div>
+          <div class="col-sm-1">
+            <label for="heuremin" class="form-label">Heure min</label>
+            <input type="time" class="form-control" name="heuremin">
+          </div>
+
+          <!-- Choix date et heure maximum -->
+          <div class="col-sm-1">
+            <label for="datemax" class="form-label">Date max</label>
+            <input type="date" class="form-control" name="datemax">
+          </div>
+          <div class="col-sm-1">
+            <label for="heuremax" class="form-label">Heure max</label>
+            <input type="time" class="form-control" name="heuremax">
+
+          </div>
+          <div class="col-sm-1 mt-5">
+            <input type="submit" class="btn btn-primary" name="filtrer" value="Filtrer">
+          </div>
+
+        </div>
+        <br>
+
+        <div class="container mt-5">
+          <h6 class="text-center alert text-white bg-primary">LISTE DES
+            CRENEAUX</h6>
+          <table class="table table-info table-hover">
+
+            <thead>
+              <tr>
+
+                <th scope="col">num</th>
+                <th scope="col">début</th>
+                <th scope="col">fin</th>
+                <th scope="col">cours</th>
+                <th scope="col">salle</th>
+                <th scope="col">prof</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+
+
+
+
+             {% for creneau in creneaux%}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{creneau.date_debut}}</td>
+                <td>{{creneau.date_fin}}</td>
+                <td>{{creneau.cours}}</a></td>
+                <td>{{creneau.salle}}</td>
+                <td>{{creneau.prof}}</td>
+              </tr>
+             {% endfor %}
+
+              </tbody>
+        </div>
+
+
+
+
+        </tbody>
+
+        </table>
+          <p>
+
+        <button type="button" class="btn btn-primary"><a class="text-light" href="{% url 'createPlanning' %}">Créer un nouveau créneau</a></button>
+    </p>
+    </div>
+
+
+    {% endblock content %}
