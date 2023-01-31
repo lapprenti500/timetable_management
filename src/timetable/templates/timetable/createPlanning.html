@@ -1,5 +1,5 @@
 {% extends 'timetable/base.html' %}
-
+{% load widget_tweaks %}
 {% block tilte %} <h1>Ajouter Créneau <h1> {% endblock tilte %}
 
 
@@ -7,11 +7,39 @@
 
 
 <div class = "container" >
-  <form action="" method="post" class="row g-3" > <!--  l' attribut de Form "novalidate" permet de desactiver la validation coté client -->
+  <form action="" method="post" class="row g-3 w-50 p-3 " > <!--  l' attribut de Form "novalidate" permet de desactiver la validation coté client -->
     <fieldset>
       <legend> Ajouter un créneau </legend>
       {% csrf_token %}
-      {{ form.as_div }}
+
+
+
+
+      <div class="mb-5">
+        <label for="filiere" class="form-label">Filière</label>
+        {% render_field form.filiere class+='form-control' id="filiere"%}
+      </div>
+      <div class="mb-5">
+        <label for="salle" class="form-label">Salle</label>
+        {% render_field form.salle class+='form-control' id="salle"%}
+      </div>
+      <div class="mb-5">
+        <label for="cours" class="form-label">Cours</label>
+        {% render_field form.cours class+='form-control' id="cours"%}
+      </div>
+      <div class="mb-5">
+        <label for="prof" class="form-label">Enseignant</label>
+        {% render_field form.prof class+='form-control' id="prof"%}
+      </div>
+      <div class="mb-5">
+        <label for="date_de_debut" class="form-label">Date De Debut</label>
+        {% render_field form.date_de_debut class+='form-control' %}
+      </div>
+
+       <div class="mb-5">
+        <label for="date_de_fin" class="form-label">Date De Fin</label>
+        {% render_field form.date_de_fin class+='form-control' %}
+      </div>
 
       <div class="form-group">
         <button class="btn btn-primary" type="submit">Valider</button>
