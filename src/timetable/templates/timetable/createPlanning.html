@@ -1,0 +1,25 @@
+{% extends 'timetable/base.html' %}
+
+{% block tilte %} <h1>Ajouter Créneau <h1> {% endblock tilte %}
+
+
+{% block content %}
+
+
+<div class = "container" >
+  <form action="" method="post" class="row g-3" > <!--  l' attribut de Form "novalidate" permet de desactiver la validation coté client -->
+    <fieldset>
+      <legend> Ajouter un créneau </legend>
+      {% csrf_token %}
+      {{ form.as_div }}
+
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Valider</button>
+      </div>
+    </fieldset>
+  </form>
+
+</div>
+
+
+{% endblock %}
